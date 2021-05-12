@@ -11,21 +11,15 @@ class NotesController < ApplicationController
   end
 
   def create
-    @notes = Note.insert_all(
-      notes_to_add,
-      returning: '*'
-    )
+    job = NoteAddJob.perform_later notes_to_add
 
-    render json: @notes, status: :created
+    redirect_to job_status_path(id: job.provider_job_id)
   end
 
   def update
-    @notes = Note.upsert_all(
-      notes_to_update,
-      returning: '*'
-    )
+    job = NoteUpdateJob.perform_later notes_to_update
 
-    render json: @notes
+    redirect_to job_status_path(id: job.provider_job_id)
   end
 
   def destroy
@@ -45,9 +39,7 @@ class NotesController < ApplicationController
 
   # will update only existing notes
   def notes_to_update
-    notes = notes_params.select { |x| x[:id] }
-    existing_notes_ids = Note.where(id: notes.pluck(:id)).ids
-    notes.select { |x| existing_notes_ids.include?(x[:id]) }
+    notes_params.select { |x| x[:id] }
   end
 
   def notes_to_delete
