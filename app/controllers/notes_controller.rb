@@ -13,13 +13,19 @@ class NotesController < ApplicationController
   def create
     job = NoteAddJob.perform_later notes_to_add
 
-    redirect_to job_status_path(id: job.provider_job_id)
+    render json: {
+      job_id: job.provider_job_id,
+      link: job_status_path(id: job.provider_job_id)
+    }
   end
 
   def update
     job = NoteUpdateJob.perform_later notes_to_update
 
-    redirect_to job_status_path(id: job.provider_job_id)
+    render json: {
+      job_id: job.provider_job_id,
+      link: job_status_path(id: job.provider_job_id)
+    }
   end
 
   def destroy
