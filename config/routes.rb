@@ -5,5 +5,7 @@ Rails.application.routes.draw do
     post :notes, to: 'notes#create'
     put :notes, to: 'notes#update'
     delete :notes, to: 'notes#destroy'
+
+    get :job_status, to: 'job_statuses#index'
   end
 end
