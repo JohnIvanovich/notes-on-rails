@@ -64,7 +64,10 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
+    chronic_duration (0.10.6)
+      numerizer (~> 0.1.1)
     concurrent-ruby (1.1.8)
+    connection_pool (2.2.5)
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.15.0)
@@ -88,6 +91,7 @@ GEM
     nio4r (2.5.7)
     nokogiri (1.11.3-x86_64-linux)
       racc (~> 1.4)
+    numerizer (0.1.1)
     pg (1.2.3)
     puma (5.3.0)
       nio4r (~> 2.0)
@@ -125,6 +129,14 @@ GEM
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.2.5)
+    sidekiq (6.2.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
+    sidekiq-status (1.1.4)
+      chronic_duration
+      sidekiq (>= 3.0)
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -151,6 +163,8 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 6.1.3, >= 6.1.3.1)
+  sidekiq (~> 6.2)
+  sidekiq-status (~> 1.1)
   spring
   tzinfo-data
 
